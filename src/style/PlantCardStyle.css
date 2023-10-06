@@ -1,0 +1,29 @@
+.plant-card{
+    width: calc(30% - 10px); 
+    margin: 10px;
+    margin-bottom: 10px; 
+    position: relative;
+  }
+.plant-image{
+    width: 100%;
+    height: 60%;
+    border-radius: 12px;
+}
+.plant-name{
+    font-size: large;
+    font-weight: bold;
+}
+.plant-price{
+    background-color:olivedrab;
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 10px;
+    border-radius: 50%;
+}
+.plant-button{
+    border-radius: 12px;
+    background-color: tan;
+    position: absolute;
+    right: 0;
+}

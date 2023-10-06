@@ -1,0 +1,48 @@
+
+.body{
+    display: flex;
+    justify-content:center;
+    position: absolute;
+}
+.sideBar{
+    background-color: seagreen;
+    color: white;
+    position: relative;
+    left: 0;
+    top: 0;
+    padding: 10px;
+    height:auto;
+    width: auto;
+}
+.categoryChoice{
+    text-align: center;
+    margin: 20px;
+}
+.list-plants{
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5);
+    border-radius: 12px;
+    margin: 20px;
+    padding: 5px;
+    width: 80%;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+.panier-button{
+    background-color: cadetblue;
+    border-radius: 12px;
+
+}
+.fermer-sidebar{
+    position:absolute ;
+    right: 10px;
+    cursor: pointer;
+    font-weight: bold;
+}
+.button-show{
+    color:green; 
+    padding: 2px;
+    margin:5px; 
+    cursor:pointer;
+
+}
