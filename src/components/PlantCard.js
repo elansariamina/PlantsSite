@@ -7,11 +7,12 @@ function PlantCard({
     categorie,
     handleAddPlant
 }) {
+    const image = require(`./../assets/${plant.cover}.jpg`);
     return (
         (!categorie || categorie === "all" || categorie === plant.category) && (
             <div className='plant-card'>
               <span className='plant-price'>{plant.price}$</span>
-              <img src={plant.cover} alt='.' className='plant-image' />
+              <img src={image} alt='.' className='plant-image' />
               <div className='plant-name'>{plant.name}</div>
               <CareScale item={plant.water} type="water" />
               <CareScale item={plant.light} type="light" />

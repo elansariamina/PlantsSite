@@ -1,16 +1,31 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import PlantCard from './PlantCard'
+import axios from 'axios';
 import { plantList } from './ListPlants';
 
 function ListCards({
     handleAddPlant
 }) {
     const [selectedValue, setSelectedValue] = useState('');
+    const [plantsData, setPlantsData] = useState([]);
+
 
     const handleSelectChange = (event) => {
     const selectedOption = event.target.value;
     setSelectedValue(selectedOption);
   };
+
+  useEffect(() => {
+    axios.get('http://localhost:4000/api/plants')
+      .then(response => {
+        setPlantsData(response.data);
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  }, []);
+  
+  
   return (
     <div>
         <div className='categoryChoice'>
@@ -23,7 +38,7 @@ function ListCards({
         </div>
         <div className='list-plants'>
         
-        {plantList.map((plant) => (
+        {plantsData.map((plant) => (
             <PlantCard
                 key={plant.id}
              plant={plant} 
