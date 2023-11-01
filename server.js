@@ -29,12 +29,10 @@ app.listen(port, () => {
         }else{
             res.setHeader('Content-Type', 'application/json');
             res.status(200).send(result.rows)
-            console.log("test")
         }
     })
     app.get('/api/plants/:id', (req, res) => {
         let id = req.params.id;
-        console.log(id);
         pool.query('SELECT * FROM plants WHERE id=$1', [id], (error, result) => {
             if (error){
                 throw error
