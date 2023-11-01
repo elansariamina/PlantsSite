@@ -29,7 +29,31 @@ app.listen(port, () => {
         }else{
             res.setHeader('Content-Type', 'application/json');
             res.status(200).send(result.rows)
+            console.log("test")
         }
+    })
+    app.get('/api/plants/:id', (req, res) => {
+        let id = req.params.id;
+        console.log(id);
+        pool.query('SELECT * FROM plants WHERE id=$1', [id], (error, result) => {
+            if (error){
+                throw error
+            }else{
+                res.setHeader('Content-Type', 'application/json');
+                res.status(200).send(result.rows[0])
+            }
+        })
+    })
+    
+    app.delete('/api/plants/:id', (req,res) => {
+        let id = req.params.id;
+        pool.query("DELETE from plants WHERE id=$1", [id], (err, result)=>{
+            if (err) {
+                throw err
+            } else {
+                res.sendStatus(200)
+            }
+        })
     })
     
 });
