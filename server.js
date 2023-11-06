@@ -1,57 +1,68 @@
 const express = require('express');
-const bodyParser = require('body-parser');
-const axios = require('axios');
-const { Pool } = require('pg');
-const cors = require('cors');
+// const bodyParser = require('body-parser');
+const mongoose = require("mongoose");
+// const cors = require('cors');
+
+
 
 const app = express();
 const port = process.env.PORT || 4000; 
-app.use(bodyParser.json());
+// app.use(bodyParser.json());
+// app.use(cors());
 
-app.use(cors());
 
-const pool = new Pool({
-  user: 'postgres',
-  host: 'localhost',
-  database: 'plants',
-  password: 'system',
-  port: 5432,
+
+const uri = 'mongodb://localhost:27017/plants'; 
+const routes = require('./src/routes/plants.routes');
+
+mongoose.connect(uri, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+})
+.then(() => {
+    app.listen(port, () => {
+        console.log(`Server is running on port ${port}`);
+    });
+})
+.catch(err => {
+    console.error("Could not connect to the database. Exiting now...", err);
+    process.exit();
 });
 
-app.listen(port, () => {
-    console.log(`Server is running on port ${port}`);
-  });
-  app.get('/api/plants', (req, res) => {
-    pool.query('SELECT * FROM plants',  (error, result) => {
-    
-        if (error){
-            throw error
-        }else{
-            res.setHeader('Content-Type', 'application/json');
-            res.status(200).send(result.rows)
-        }
-    })
-    app.get('/api/plants/:id', (req, res) => {
-        let id = req.params.id;
-        pool.query('SELECT * FROM plants WHERE id=$1', [id], (error, result) => {
-            if (error){
-                throw error
-            }else{
-                res.setHeader('Content-Type', 'application/json');
-                res.status(200).send(result.rows[0])
-            }
-        })
-    })
-    
-    app.delete('/api/plants/:id', (req,res) => {
-        let id = req.params.id;
-        pool.query("DELETE from plants WHERE id=$1", [id], (err, result)=>{
-            if (err) {
-                throw err
-            } else {
-                res.sendStatus(200)
-            }
-        })
-    })
-    
-});
+routes(app);
+// async function connectToMongo() {
+//     try {
+//       await client.connect();
+//       console.log('Connected to MongoDB');
+  
+//       const database = client.db(dbName);
+  
+//       app.listen(port, () => {
+//         console.log(`Server is running on port ${port}`);
+//       });
+  
+//       app.get('/api/plants', async (req, res) => {
+//         const collection = database.collection('plants');
+//         const plants = await collection.find({}).toArray();
+//         res.json(plants);
+//       });
+  
+//       app.get('/api/plants/:id', async (req, res) => {
+//         const collection = database.collection('plants');
+//         const id = req.params.id;
+//         const plant = await collection.findOne({ _id: new ObjectId(id) });
+//         res.json(plant);
+//       });
+  
+//       app.delete('/api/plants/:id', async (req, res) => {
+//         const collection = database.collection('plants');
+//         const id = req.params.id;
+//         await collection.deleteOne({ _id: new ObjectId(id) });
+//         res.sendStatus(200);
+//       });
+//     } catch (err) {
+//       console.error('Error connecting to MongoDB: ', err);
+//     }
+//   }
+  
+//   connectToMongo();

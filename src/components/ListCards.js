@@ -1,7 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import PlantCard from './PlantCard'
 import axios from 'axios';
-import { plantList } from './ListPlants';
 
 function ListCards({
     handleAddPlant
