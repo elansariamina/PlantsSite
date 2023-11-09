@@ -2,11 +2,13 @@ import React, { useState, useEffect } from 'react'
 import '../style/listPlantsStyle.css'
 import ListCards from './ListCards'
 import SideBar from './SideBar'
-import Footer from './Footer';
+// import Footer from './Footer';
+import CommandForm from './CommandForm';
 
 function Body() {
     const [plantSelected, setPlantSelected] = useState([]);
     const [displaySideBar, setDisplaySidebar] = useState(true);
+    const [showForm, setShowForm] = useState(false);
 
 
 function handleAddPlant(name, price) {
@@ -46,13 +48,17 @@ function handleAddPlant(name, price) {
             viderPanier={viderPanier}
             calculateTotalPrice={calculateTotalPrice}
             setDisplaySidebar={setDisplaySidebar}
+            setShowForm={setShowForm}
         /> : <span className='button-show' onClick={()=>setDisplaySidebar(true)}>Show panier</span>}
         <ListCards 
             handleAddPlant={handleAddPlant}
         />
-        
+        {showForm && <CommandForm 
+        plantSelected={plantSelected}
+        calculateTotalPrice={calculateTotalPrice}
+        />}
     </div>
-    <Footer />
+    {/* <Footer /> */}
     </>
   )
 }

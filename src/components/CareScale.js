@@ -24,4 +24,4 @@ function CareScale({
   )
 }
 
-export default CareScale
+export default CareScale;
